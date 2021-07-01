@@ -201,6 +201,8 @@ This is where transform of data take place, normally one does not need to bother
 You can read the default implementation here [here](https://github.com/pytorch/pytorch/blob/master/torch/utils/data/_utils/collate.py)
 
 Let's have a look at what collate function does - 
+
+**Example - 1**
 ```
 item_list = [1,2,3,4,5]
 default_collate(item_list)
@@ -209,6 +211,8 @@ default_collate(item_list)
 ```
 
 Here the collate function has converted our inputs into tensors.
+
+**Example - 2**
 ```
 item_list = ([1,2,3,4,5],[6,7,8,9,10])  #item
 default_collate(item_list)
@@ -219,7 +223,8 @@ default_collate(item_list)
             tensor([4, 9]),
             tensor([ 5, 10])]
 ```
-For sample 2, the batch is a tuple of 2 lists, and it return a list of tensor, which each tensor get 1 item from each list in original tuple.
+For example 2, the batch is a tuple of 2 lists, and it return a list of tensor, which each tensor get 1 item from each list in original tuple.
+
 
 Example - 3
 ```
@@ -238,7 +243,7 @@ default_collate(item_list)
 # output - [tensor([1, 3, 5, 7]), tensor([2, 4, 6, 8]), tensor([3, 5, 7, 9])]
 ```
 
-For sample 3 and 4, the input look like typical data form that have multiple attributes. Consider case 4, if 3rd element per record is the label and first 2 elements are input data attributes, the return list of tensors is not directly usable by the model, in which the preferable return could be:
+For Example 3 and 4, the input look like typical data form that have multiple attributes. Consider case 4, if 3rd element per record is the label and first 2 elements are input data attributes, the return list of tensors is not directly usable by the model, in which the preferable return could be:
 
 `[tensor([[1,2], [3,4], [5,6], [7,8]]), tensor([3,5,7,9])]`
 
@@ -330,8 +335,8 @@ def collate_fn(batch):
 
 
 ## Refrences - 
-https://pytorch.org/text/stable/index.html
-https://www.scottcondron.com/jupyter/visualisation/audio/2020/12/02/dataloaders-samplers-collate.html
-https://pytorch.org/docs/stable/data.html#map-style-datasets
-https://pytorch.org/tutorials/beginner/basics/data_tutorial.html
-https://medium.com/geekculture/pytorch-datasets-dataloader-samplers-and-the-collat-fn-bbfc7c527cf1
+* https://pytorch.org/text/stable/index.html
+* https://www.scottcondron.com/jupyter/visualisation/audio/2020/12/02/dataloaders-samplers-collate.html
+* https://pytorch.org/docs/stable/data.html#map-style-datasets
+* https://pytorch.org/tutorials/beginner/basics/data_tutorial.html
+* https://medium.com/geekculture/pytorch-datasets-dataloader-samplers-and-the-collat-fn-bbfc7c527cf1
