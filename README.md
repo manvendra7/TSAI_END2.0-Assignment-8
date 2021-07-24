@@ -26,7 +26,8 @@ We can also create our own custom dataset class, our dataset class must have imp
 
 Let's write a custom dataset class to load our question/answer dataset - 
 
-```class CustomTextDataset(Dataset):
+```python
+class CustomTextDataset(Dataset):
 
   "Custom Dataset class to load QnA data"
 
@@ -50,6 +51,7 @@ Let's write a custom dataset class to load our question/answer dataset -
 data = CustomTextDataset('Question','Answer','/content/full_question_answer_data.txt')
 next(iter(data))
 ```
+
 ```
 output : {'SRC': 'Was Abraham Lincoln the sixteenth President of the United States?',
           'TGT': 'yes'}
@@ -69,9 +71,10 @@ High level idea is, it check what style of dataset (iterator / map) and iterate 
 Then we just wrap the data in a DataLoader and we can iterate it but now they're magically tensors and we can use DataLoaders handy configurations like shuffling, batching, multi-processing, etc.:
 
 For Instance on our QnA dataset if we use DataLoader to load the dataset let's see what is the output 
-```
+```python
 list(DataLoader(data))[:11]  # only looking at first 11 examples
-
+```
+```
 ####################################################################################
 
 [{'SRC': ['Was Abraham Lincoln the sixteenth President of the United States?'],
@@ -97,7 +100,7 @@ list(DataLoader(data))[:11]  # only looking at first 11 examples
 
 DataLoaders can also load the data in batches let's try to load the data with batch size of 2.
 
-```
+```python
 bat_size = 2
 DL_DS = DataLoader(data, batch_size=bat_size)
 
@@ -149,7 +152,7 @@ In machine learning or deep learning text needs to be cleaned and turned in to v
 Tokenization is a common task in Natural Language Processing (NLP), Tokenization is a way of separating a piece of text into smaller units called tokens. Here, tokens can be either words, characters, or subwords.
 
 Let's look at an example - 
-```
+```python
 import torchtext
 from torchtext.data import get_tokenizer
 tokenizer = get_tokenizer("basic_english")
@@ -168,7 +171,7 @@ we can use `build_vocab_from_iterator` from `torchtext.vocab` to build our vocab
 
 Let's use demonstrate this with an example on AG_NEWS dataset.
 
-```
+```python
 from torchtext.data.utils import get_tokenizer
 from torchtext.vocab import build_vocab_from_iterator
 from torchtext.datasets import AG_NEWS
@@ -203,7 +206,7 @@ You can read the default implementation here [here](https://github.com/pytorch/p
 Let's have a look at what collate function does - 
 
 **Example - 1**
-```
+```python
 item_list = [1,2,3,4,5]
 default_collate(item_list)
 
@@ -213,7 +216,7 @@ default_collate(item_list)
 Here the collate function has converted our inputs into tensors.
 
 **Example - 2**
-```
+```python
 item_list = ([1,2,3,4,5],[6,7,8,9,10])  #item
 default_collate(item_list)
 
@@ -259,7 +262,7 @@ Default:
 ```
 
 Let's Write our own collate function for that - 
-```
+```python
 import torch
 def our_own_collate(data):
 
@@ -285,7 +288,7 @@ our_own_collate(item_list)
 In our case working with textual data or in NLP we do padding of sequences, one of the use case is RNN/LSTM model for NLP. For a batch of sentence, when we sample randomly, we would get batches of sentence with different length, and because we are performing batch operation, we would need to pad the shorter sequences to the longest one. One option is to pad to a pre-defined maximum length, it should be the case for Transformer models.
 
 Collate function used in our case is - 
-```
+```python
 ######################################################################
 # Collation
 # ---------
