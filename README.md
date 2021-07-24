@@ -49,7 +49,7 @@ Let's write a custom dataset class to load our question/answer dataset -
 
 data = CustomTextDataset('Question','Answer','/content/full_question_answer_data.txt')
 next(iter(data))
- ```
+```
 ```
 output : {'SRC': 'Was Abraham Lincoln the sixteenth President of the United States?',
           'TGT': 'yes'}
